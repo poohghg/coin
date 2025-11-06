@@ -1,36 +1,81 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## 기술 스택 및 환경
 
-## Getting Started
+| **분류**    | **기술 스택**                         | **주요 역할**                                |
+|-----------|-----------------------------------|------------------------------------------|
+| **프레임워크** | **Next.js 15 (App Router)**       | 서버 컴포넌트(RSC)를 활용한 초기 렌더링 및 데이터 패칭 최적화.   |
+| **언어/타입** | **TypeScript**                    | 안정적인 코드 베이스 및 타입 안정성 확보.                 |
+| **상태 관리** | **Zustand (with `localStorage`)** | 가벼운 클라이언트 상태 관리 (즐겨찾기, 검색, 정렬) 및 상태 영속화. |
+| **스타일링**  | **Tailwind CSS**                  | 유틸리티 기반의 빠르고 반응성 높은 UI 구현.               |
+| **패키지**   | **pnpm**                          | 효율적이고 빠른 의존성 관리.                         |
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 아키텍처 및 핵심 설계 원칙
+
+본 프로젝트는 **클린 아키텍처(Clean Architecture)**와 **FSD(Feature-Sliced Design)**를 결합하여 견고한 구조와 명확한 관심사 분리를 달성했습니다.
+
+### 1. FSD 기반 컴포넌트 계층화
+
+- **`entities/coin`**: 핵심 도메인(Coin)의 **클린 아키텍처 계층**을 포함합니다. (모델, DTO, 리포지토리 추상화, API 어댑터).
+
+- **`features/coin`**: 특정 사용자 기능(즐겨찾기 상태, 검색/정렬 로직)을 캡슐화한 훅 및 스토어를 포함합니다.
+
+- **`widgets/CoinListTable`**: 상위 계층(`features`, `entities`)을 조합하여 실제 UI(테이블)를 구성합니다.
+
+### 2. 클린 아키텍처 적용 (Service/Repository 패턴)
+
+- **Service (비즈니스 로직):** View의 요청을 받아 **비즈니스 규칙**을 적용하고, Repository로부터 받은 **도메인 모델**을 조작합니다.
+
+- **Repository (데이터 접근 추상화):** 외부 API 통신(CoinGecko) 및 **DTO를 도메인 엔티티/모델로 변환(매핑)**하는 데이터 어댑터 역할을 수행하며, DIP(의존성 역전 원칙)를
+  준수합니다.
+
+---
+
+## 주요 구현 및 데이터 흐름
+
+### 1. 데이터 처리 및 흐름 (SSR/CSR 경계)
+
+1. **Server Component (`CoinListFetcher`):**
+
+    - `api/service`를 호출하여 코인 데이터를 **패칭**하고 **도메인 모델**로 변환합니다.
+
+    - **주의 사항:** 클라이언트 컴포넌트 전달 직전에 **직렬화 제약**에 맞춰 도메인 모델(클래스 인스턴스)을 **순수 JavaScript 객체**로 변환하여 `CoinTabPanels`에 전달합니다.
+
+2. **`CoinTabPanels` (View Layer):**
+
+    - **`useSearchedCoins`** 훅을 사용하여 검색어에 따른 코인 리스트 필터링을 수행합니다.
+
+    - **`useSortCoins`** 훅을 사용하여 코인 리스트를 선택된 정렬 기준에 따라 정렬합니다.
+
+    - **`FavoritesCoin`**컴포넌트 내에서 **`useFavoriteCoinStore`**를 구독하여 즐겨찾기 탭의 필터링을 수행합니다.
+
+### 2. 최적화 및 UX 요소
+
+- **Zustand 영속화:** `useFavoriteCoinStore`는 **`localStorage`**와 연동되어 즐겨찾기 상태를 페이지 새로고침 후에도 유지합니다.
+
+- **Hydration 방지:** 클라이언트 전용 상태(`useFavoriteCoinStore`)를 사용하는 컴포넌트(`CoinTableRow`)는 동적 임포트(`next/dynamic`)를 통해 *
+  *클라이언트에서만 렌더링**되도록 처리하여 SSR/CSR 불일치 문제를 방지했습니다.
+
+- **UX 기능:** 검색어 **디바운스**와 헤더 클릭 시 **정렬 토글 로직**을 클라이언트에서 효율적으로 구현했습니다.
+
+- **확장성:** 대규모 데이터에 대비하여 **가상 스크롤**을 즉시 도입할 수 있도록 테이블 구조를 설계했습니다.
+
+---
+
+## 프로젝트 실행 방법
+
+### 1. 의존성 설치
+
+Bash
+
+```
+pnpm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. 개발 서버 실행
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Bash
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+pnpm run dev
+```
