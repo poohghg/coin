@@ -27,6 +27,7 @@ const TabsTrigger = forwardRef<HTMLButtonElement, MergeElementProps<'button', Ta
         aria-selected={isSelected}
         onClick={handleClick}
         className={cn(className)}
+        id={`tab-${tabKey}`}
         {...props}
       >
         {props.children}

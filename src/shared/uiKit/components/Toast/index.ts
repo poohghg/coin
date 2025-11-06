@@ -1,3 +1,2 @@
-// @ts-ignore
-export { default as Toast } from './Toast';
+export { default as ToastList } from './ToastList';
 export { toasts } from './model/ToastManager';

@@ -52,7 +52,7 @@ const ToastItem = ({ type, id, message, delay }: Toast) => {
   );
 };
 
-const Toast = () => {
+const ToastList = () => {
   const toasts = useToast();
 
   if (toasts.length === 0) {
@@ -68,4 +68,4 @@ const Toast = () => {
   );
 };
 
-export default Toast;
+export default ToastList;

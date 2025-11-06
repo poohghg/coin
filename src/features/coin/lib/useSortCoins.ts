@@ -1,3 +1,5 @@
+'use client';
+
 import { Coin } from '@/src/entities/coin/model';
 import { CoinSortableField, CoinSortState } from '@/src/features/coin/model/type';
 import { useMemo, useState } from 'react';

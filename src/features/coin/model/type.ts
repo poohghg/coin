@@ -1,5 +1,7 @@
 import { Coin } from '@/src/entities/coin/model';
 
+export type CoinTabKeys = 'all' | 'favorites';
+
 export type CoinSortableField = Extract<keyof Coin, 'price' | 'change24h' | 'volume24h' | 'marketCap'>;
 
 export type SortDirection = 'ASC' | 'DESC';

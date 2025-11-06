@@ -3,7 +3,6 @@ import { createJSONStorage, persist } from 'zustand/middleware';
 
 export interface FavoriteStoreState {
   favoriteCoinIds: string[];
-
   addFavorite: (coinId: string) => void;
   removeFavorite: (coinId: string) => void;
   toggleFavorite: (coinId: string) => boolean;

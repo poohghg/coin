@@ -12,6 +12,7 @@ export class CoinApiImpl implements CoinApi {
     const res = await new FetchBuilder(url)
       .params({
         vs_currency: 'usd',
+        per_page: '250',
       })
       .build()
       .request<CoinDTO[]>();

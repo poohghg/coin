@@ -1,5 +1,4 @@
-import { CoinListFetcher } from '@/src/entities/coin';
-import CoinTabs from '@/src/pages/coinList/ui/CoinTabs';
+import { CoinTabs } from '@/src/widgets/CoinTabs';
 
 const CoinListPage = () => {
   return (
@@ -8,7 +7,7 @@ const CoinListPage = () => {
         <div className="flex items-center mb-6">
           <h1 className="text-3xl font-bold">Coin List</h1>
         </div>
-        <CoinListFetcher>{coins => <CoinTabs coins={coins} />}</CoinListFetcher>
+        <CoinTabs />
       </div>
     </div>
   );

@@ -2,10 +2,12 @@
 
 import { MergeElementProps } from '@/src/shared/model/reactElement';
 import { TabsContextProvider } from '@/src/shared/uiKit/components/Tabs/Context';
-import TabPanel from '@/src/shared/uiKit/components/Tabs/ui/TabPanel';
-import TabsList from '@/src/shared/uiKit/components/Tabs/ui/TabsList';
-import TabsTrigger from '@/src/shared/uiKit/components/Tabs/ui/TabsTrigger';
+import dynamic from 'next/dynamic';
 import { ReactNode } from 'react';
+
+const TabPanel = dynamic(() => import('@/src/shared/uiKit/components/Tabs/ui/TabPanel'));
+const TabsList = dynamic(() => import('@/src/shared/uiKit/components/Tabs/ui/TabsList'));
+const TabsTrigger = dynamic(() => import('@/src/shared/uiKit/components/Tabs/ui/TabsTrigger'));
 
 interface TabsProps {
   children: ReactNode;

@@ -1,4 +1,5 @@
 import { Coin } from '@/src/entities/coin/model/type';
+import { Formatter } from '@/src/shared/lib/formatCurrency';
 
 export class BaseCoin implements Coin {
   constructor(
@@ -39,6 +40,30 @@ export class BaseCoin implements Coin {
     return this._marketCap;
   }
 
+  get formattedPrice(): string {
+    return Formatter.asUSD(this.price);
+  }
+
+  get formattedChange24h(): string {
+    const sign = this.change24h > 0 ? '+' : '';
+    const formatted = Formatter.asGeneralNumber(this.change24h);
+    return `${sign}${formatted}%`;
+  }
+
+  get changeColor(): string {
+    if (this.change24h > 0) return 'text-green-400';
+    if (this.change24h < 0) return 'text-red-400';
+    return 'text-gray-400';
+  }
+
+  get formattedVolume24h(): string {
+    return Formatter.asAbbreviatedUSD(this.volume24h);
+  }
+
+  get formattedMarketCap(): string {
+    return Formatter.asAbbreviatedUSD(this.marketCap);
+  }
+
   toJSON(): Coin {
     return {
       symbol: this._symbol,
@@ -48,6 +73,11 @@ export class BaseCoin implements Coin {
       change24h: this._change24h,
       volume24h: this._volume24h,
       marketCap: this._marketCap,
+      formattedPrice: this.formattedPrice,
+      formattedChange24h: this.formattedChange24h,
+      changeColor: this.changeColor,
+      formattedVolume24h: this.formattedVolume24h,
+      formattedMarketCap: this.formattedMarketCap,
     };
   }
 }

@@ -1,2 +1,12 @@
 export { cn } from './lib/index';
-export { toasts, Toast, Tabs, SkeletonBox, SwitchCase } from './components';
+export {
+  toasts,
+  ToastList,
+  Tabs,
+  SkeletonBox,
+  SwitchCase,
+  IconSearch,
+  IconArrow,
+  IconStar,
+  SearchBar,
+} from './components';
