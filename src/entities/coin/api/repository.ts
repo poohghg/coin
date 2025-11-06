@@ -1,6 +1,6 @@
+import { Coin } from '@/src/entities/coin';
 import { CoinApi } from '@/src/entities/coin/api/api';
 import { CoinMapper } from '@/src/entities/coin/api/mapper';
-import { Coin } from '@/src/entities/coin/model/type';
 import { IErrorResponse, ISuccessResponse } from '@/src/shared/lib/api/model/Response';
 
 export interface CoinRepository {
