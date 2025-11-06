@@ -1,10 +1,10 @@
 'use client';
 
-import { useAutoClose } from '@/src/shared/lib/hooks';
+import { useAutoClose, useTransitionState } from '@/src/shared/lib/hooks';
 import { toasts } from '@/src/shared/uiKit';
 import { useToast } from '@/src/shared/uiKit/components/Toast/lib/useToast';
 import type { Toast, ToastType } from '@/src/shared/uiKit/components/Toast/model/type';
-import React, { useCallback, useEffect, useState } from 'react';
+import React from 'react';
 
 const toastTypeClasses: Record<ToastType, string> = {
   success: 'bg-green-500',
@@ -14,18 +14,9 @@ const toastTypeClasses: Record<ToastType, string> = {
 };
 
 const ToastItem = ({ type, id, message, delay }: Toast) => {
-  const [isClose, setIsClose] = useState(false);
-  const [isAppearing, setIsAppearing] = useState(false);
+  const { isClose, isAppearing, close } = useTransitionState(100);
 
-  useEffect(() => {
-    setIsAppearing(true);
-  }, []);
-
-  const handleAutoClose = useCallback(() => {
-    setIsClose(true);
-  }, [id]);
-
-  useAutoClose(delay, handleAutoClose);
+  useAutoClose(delay, close);
 
   const baseClasses = `px-4 py-2 rounded shadow-md text-white ${toastTypeClasses[type]} transition-all duration-200 ease-in-out`;
 

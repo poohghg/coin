@@ -1,6 +1,5 @@
 import { CoinDTO } from '@/src/entities/coin/model/dto';
-import FetchBuilder from '@/src/shared/lib/api/Fetch';
-import { IErrorResponse, ISuccessResponse } from '@/src/shared/lib/api/model/Response';
+import { FetchBuilder, IErrorResponse, ISuccessResponse } from '@/src/shared/lib/api';
 
 export interface CoinApi {
   fetchCoinList(): Promise<ISuccessResponse<CoinDTO[]> | IErrorResponse<null>>;
