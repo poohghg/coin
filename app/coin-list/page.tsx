@@ -1,7 +1,6 @@
-import { CoinListPage } from '@/src/pages/coinList';
-
 const Page = async () => {
-  return <CoinListPage />;
+  return null;
+  // return <CoinListPage />;
 };
 
 export default Page;

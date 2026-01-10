@@ -33,7 +33,6 @@ class Fetch {
           message: err.data?.message,
         });
       }
-
       /**
        * 네트워크 에러, CORS, abort 등
        */

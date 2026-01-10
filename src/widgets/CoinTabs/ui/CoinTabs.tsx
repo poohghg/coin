@@ -12,11 +12,15 @@ interface CoinTabsProps {
   }[];
 }
 
+// tabs은 페이지 레벨에서 사용
 const CoinTabs = ({ tabList }: CoinTabsProps) => {
   return (
     <Tabs className="mb-6 space-y-4" defaultKey="all">
       <CoinTabList tabList={tabList} />
       <CoinSearchBar />
+      {/*<ServerFetcher*/}
+      {/*// fetcher={}*/}
+      {/*></ServerFetcher>*/}
       <CoinListFetcher>{coins => <CoinTabPanels coins={coins} tabList={tabList} />}</CoinListFetcher>
     </Tabs>
   );

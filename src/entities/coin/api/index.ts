@@ -1,2 +1,2 @@
-export { UpbitCoinApiImpl } from 'src/entities/coin/api/upbitCoinApi';
-export type { UpbitCoinApi } from 'src/entities/coin/api/upbitCoinApi';
+export { UpbitCoinApiImpl } from './upbitCoinApi';
+export type { UpbitCoinApi } from './upbitCoinApi';

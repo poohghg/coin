@@ -1,6 +1,7 @@
 import { Coin } from '@/src/entities/coin';
+import { CoinMapper } from '@/src/entities/coin/api/mapper';
+import { CoinMarketDTO } from '@/src/entities/coin/api/schema';
 import { UpbitCoinApi, UpbitCoinApiImpl } from '@/src/entities/coin/api/upbitCoinApi';
-import { CoinMapper } from '@/src/entities/coin/model/mapper';
 
 export interface CoinRepository {
   getCoinList(): Promise<Coin[]>;
@@ -17,17 +18,16 @@ export class CoinRepositoryImpl implements CoinRepository {
   }
 
   async getCoinList() {
-    const res = await this.api.fetchCoinList();
-    return CoinMapper.fromDTO(res.data);
-  }
+    const [marketsRes, pricesRes] = await Promise.all([this.api.fetchCoinMarketAll(), this.api.fetchCoinPrice()]);
 
-  // async getCoinMarketAll() {
-  //   const res = await this.api.fetchCoinMarketAll();
-  //
-  //   if (!res.ok) {
-  //     return res;
-  //   }
-  //
-  //   return res.toModelMap(CoinMapper.fromMarketDTO);
-  // }
+    const marketMap = marketsRes.data.reduce((acc, market) => {
+      acc.set(market.market, market);
+      return acc;
+    }, new Map<string, CoinMarketDTO>());
+
+    return pricesRes.data.map(priceDTO => {
+      const marketDTO = marketMap.get(priceDTO.market);
+      return CoinMapper.toCoin(marketDTO!, priceDTO);
+    });
+  }
 }

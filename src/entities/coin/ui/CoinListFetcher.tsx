@@ -9,6 +9,7 @@ interface CoinListFetcherProps {
   children: (coins: Coin[]) => ReactNode;
 }
 
+// pages 레벨 에서 사용
 const CoinListFetcher = async ({ children }: CoinListFetcherProps) => {
   return (
     <ServerFetcher

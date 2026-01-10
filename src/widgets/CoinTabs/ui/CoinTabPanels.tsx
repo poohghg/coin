@@ -27,6 +27,7 @@ interface CoinTabPadelProps {
 }
 
 const CoinTabPanels = ({ coins, tabList }: CoinTabPadelProps) => {
+  // 두 훅의 위치는 feature 레벨에 맞게 조정
   const searchedCoins = useSearchedCoins(coins);
   const { sortedCoins, sortState, changeSortState } = useSortCoins(searchedCoins);
 
@@ -41,6 +42,8 @@ const CoinTabPanels = ({ coins, tabList }: CoinTabPadelProps) => {
               <Tabs.Panel tabKey="favorites">
                 <FavoritesCoins coins={sortedCoins}>
                   {favoriteCoins => (
+                    // 엔티티 레벨이 맞음
+                    // 이름을 coinList로 변경해야함
                     <CoinListTable coins={favoriteCoins} sortState={sortState} onChangeSort={changeSortState} />
                   )}
                 </FavoritesCoins>

@@ -2,34 +2,38 @@ export class Formatter {
   /**
    * @param value 금액
    * @returns 포맷팅된 달러 문자열
+   * @example 1234.56 -> '$1,234.56'
    */
-  public static asUSD(value: number): string {
-    const formatted = this._formatNumber(value, 0, 4);
+  public static asUSDFormat(value: number): string {
+    const formatted = this.formatNumber(value, 0, 4);
     return `$${formatted}`;
   }
 
   /**
    * @param value 금액
    * @returns 포맷팅된 원화 문자열
+   * @example 12345678 -> '12,345,678원'
    */
-  public static asKRW(value: number): string {
+  public static asKRWFormat(value: number): string {
     // 원화는 소수점 없이 정수 형태로 표시 (minDecimals: 0, maxDecimals: 0)
-    const formatted = this._formatNumber(value, 0, 0);
+    const formatted = this.formatNumber(value, 0, 0);
     return `${formatted}원`;
   }
 
   /**
    * @param value 숫자 (전체 일반 포멧 사용)
    * @returns 포맷팅된 일반 숫자 문자열
+   * @example 12345678 -> '12,345,678'
    */
   public static asGeneralNumber(value: number): string {
-    return this._formatNumber(value, 0, 2);
+    return this.formatNumber(value, 0, 2);
   }
 
   /**
    * @param usdValue 달러 금액
    * @param exchangeRate 환율 (USD -> KRW)
-   * @returns '≈ 1000원' 접두사가 붙은 원화 문자열
+   * @returns '≈ 1000원' 접두사가 붙은 환율이 적용된 원화 문자열
+   * @example asConvertedKRW(10, 1300) -> '≈ 13,000원'
    */
   public static asConvertedKRW(usdValue: number, exchangeRate: number): string {
     const krwValue = usdValue * exchangeRate;
@@ -41,7 +45,7 @@ export class Formatter {
    * @returns '≈ 1000원' 접두사가 붙은 원화 문자열
    */
   public static asConvertedKRWFormat(krwValue: number): string {
-    const formattedKrw = this.asKRW(krwValue);
+    const formattedKrw = this.asKRWFormat(krwValue);
     return `≈ ${formattedKrw}`;
   }
 
@@ -67,7 +71,7 @@ export class Formatter {
    * @param minDecimals 최소 소수점 자릿수 (후행 0 유지를 제어)
    * @param maxDecimals 최대 소수점 자릿수 (반올림 및 표시 자릿수 상한)
    */
-  static _formatNumber(value: number, minDecimals: number, maxDecimals: number): string {
+  public static formatNumber(value: number, minDecimals: number, maxDecimals: number): string {
     const multiplier = Math.pow(10, maxDecimals);
     const roundedValue = Math.round(value * multiplier) / multiplier;
 
