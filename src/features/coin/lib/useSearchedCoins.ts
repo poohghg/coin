@@ -12,7 +12,10 @@ export const useSearchedCoins = (coins: Coin[]) => {
     }
 
     return coins.filter(
-      coin => coin.name.toLowerCase().includes(normalizedQuery) || coin.symbol.toLowerCase().includes(normalizedQuery)
+      coin =>
+        coin.korean_name.toLowerCase().includes(normalizedQuery) ||
+        coin.english_name.toLowerCase().includes(normalizedQuery) ||
+        coin.symbol.toLowerCase().includes(normalizedQuery)
     );
   }, [coins, normalizedQuery]);
 };

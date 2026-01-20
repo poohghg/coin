@@ -5,10 +5,6 @@ import { useMemo } from 'react';
 export const useFavoritesCoins = (coins: Coin[]) => {
   const favoriteCoinIds = useFavoriteCoinStore(state => state.favoriteCoinIds);
   const favoriteCoinIdsSet = useMemo(() => new Set(favoriteCoinIds), [favoriteCoinIds]);
-  const favoriteCoins = useMemo(
-    () => coins.filter(coin => favoriteCoinIdsSet.has(coin.name)),
-    [coins, favoriteCoinIdsSet]
-  );
 
-  return favoriteCoins;
+  return useMemo(() => coins.filter(coin => favoriteCoinIdsSet.has(coin.symbol)), [coins, favoriteCoinIdsSet]);
 };

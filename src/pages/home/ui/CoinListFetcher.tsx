@@ -4,7 +4,7 @@ import { ServerFetcher } from '@/src/shared/uiKit';
 import { ReactNode } from 'react';
 
 interface CoinListFetcherProps {
-  children: (coins: Coin[]) => ReactNode;
+  children: (data: { data: Coin[]; fetchedAt: Date }) => ReactNode;
 }
 
 const CoinListFetcher = ({ children }: CoinListFetcherProps) => {

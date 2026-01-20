@@ -9,6 +9,7 @@ interface FavoritesCoinProps {
 
 const FavoritesCoins = ({ coins, children }: FavoritesCoinProps) => {
   const favoriteCoins = useFavoritesCoins(coins);
+  console.log('Favorite Coins:', favoriteCoins);
   return <>{children(favoriteCoins)}</>;
 };
 

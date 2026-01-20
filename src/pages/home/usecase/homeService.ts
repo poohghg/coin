@@ -35,11 +35,13 @@ import { CoinRepository } from '@/src/entities/coin/model/repository';
  */
 
 interface HomeUseCase {
-  getCoinList(): Promise<Coin[]>;
+  getCoinList(): Promise<{
+    data: Coin[];
+    fetchedAt: Date;
+  }>;
 }
 
 class HomeService implements HomeUseCase {
-  // 여러개의 레포지토리가 들어올 수 있음.
   private coinRepository: CoinRepository;
 
   constructor(coinRepository: CoinRepository) {
@@ -47,9 +49,12 @@ class HomeService implements HomeUseCase {
   }
 
   getCoinList = async () => {
-    return await this.coinRepository
-      .getCoins()
-      .then(coins => coins.sort((a, b) => b.signed_change_rate - a.signed_change_rate));
+    const date = new Date();
+
+    return {
+      data: await this.coinRepository.getCoins(),
+      fetchedAt: date,
+    };
   };
 }
 

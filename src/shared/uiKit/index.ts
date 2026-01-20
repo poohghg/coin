@@ -10,8 +10,9 @@ export {
   IconStar,
   SearchBar,
   ServerFetcher,
+  If,
 } from './components';
 
 export type { BaseTab } from './components';
 
-export { Spacing, Button, FilterBar } from './ui';
+export { Spacing, Button, FilterBar, RadioGroup, RadioGroupItem, Label } from './ui';

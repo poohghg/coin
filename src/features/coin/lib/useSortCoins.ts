@@ -1,38 +1,40 @@
 'use client';
 
 import { Coin } from '@/src/entities/coin/model';
-import { CoinSortableField, CoinSortState } from '@/src/features/coin/model/type';
+import { CoinSortableField } from '@/src/features/coin/model/type';
 import { useMemo, useState } from 'react';
 
 export const useSortCoins = (coins: Coin[]) => {
-  const [sortState, setSortState] = useState<CoinSortState>({ field: 'signed_change_rate', direction: 'DESC' });
+  const [sort, setSort] = useState<CoinSortableField>('signed_change_rate');
+  const [direction, setDirection] = useState<'ASC' | 'DESC'>('DESC');
 
   const changeSortState = (field: CoinSortableField) => {
-    setSortState(prevState => {
-      if (prevState.field === field) {
-        const newDirection = prevState.direction === 'ASC' ? 'DESC' : 'ASC';
-        return { field, direction: newDirection };
-      } else {
-        return { field, direction: 'DESC' };
-      }
-    });
+    setSort(field);
+  };
+
+  const changeDirection = (newDirection: 'ASC' | 'DESC') => {
+    setDirection(newDirection);
   };
 
   const sortedCoins = useMemo(() => {
     return [...coins].sort((a, b) => {
-      const aValue = a[sortState.field];
-      const bValue = b[sortState.field];
+      const aValue = a[sort];
+      const bValue = b[sort];
 
-      if (aValue < bValue) return sortState.direction === 'ASC' ? -1 : 1;
-      if (aValue > bValue) return sortState.direction === 'ASC' ? 1 : -1;
+      if (aValue < bValue) return direction === 'ASC' ? -1 : 1;
+      if (aValue > bValue) return direction === 'ASC' ? 1 : -1;
+
       return 0;
     });
-  }, [sortState, coins]);
+  }, [coins, sort, direction]);
 
   return {
     sortedCoins,
-    sortState,
+    sortState: {
+      field: sort,
+      direction,
+    },
     changeSortState,
-    direction: sortState.direction,
+    changeDirection,
   };
 };

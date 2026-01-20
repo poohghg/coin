@@ -3,19 +3,18 @@
 import { MergeElementProps } from '@/src/shared/model/reactElement';
 import { Button } from '@/src/shared/uiKit/ui';
 import { FilterBarContextProvider, useFilterBarContext } from '@/src/shared/uiKit/ui/FilterBar/ui/FilterBarContext';
-import { MouseEvent, ReactNode, useEffect } from 'react';
+import { MouseEvent, ReactNode, useEffect, useState } from 'react';
 
 interface FilterButtonProps {
   children: ReactNode;
   value: string;
 }
 
-// 활성화 컴포넌트
 const ActiveFilter = () => {
+  const [isMounted, setIsMounted] = useState(false);
   const { selectedValue } = useFilterBarContext();
 
   useEffect(() => {
-    // 리사이즈 대응
     const handleResize = () => {
       const activeEl = document.getElementById('active-filter-indicator') as HTMLDivElement;
       if (activeEl && selectedValue) {
@@ -37,7 +36,9 @@ const ActiveFilter = () => {
   return (
     <div
       id={'active-filter-indicator'}
-      className="absolute top-0 left-0 m-[2px] bg-white shadow-[0_2px_4px_rgba(0,0,0,0.1)] rounded-[6px] transition-all duration-200 ease-out pointer-events-none"
+      className={`absolute top-0 left-0 m-[2px] bg-white shadow-[0_2px_4px_rgba(0,0,0,0.1)] rounded-[6px] transition-all ease-out pointer-events-none ${
+        isMounted ? 'duration-200' : 'opacity-0'
+      }`}
       style={{
         height: 'calc(100% - 4px)',
       }}
@@ -49,6 +50,11 @@ const ActiveFilter = () => {
             el.style.transform = `translateX(${offsetLeft}px)`;
             el.style.width = `${offsetWidth}px`;
           }
+        }
+      }}
+      onTransitionEnd={() => {
+        if (!isMounted) {
+          setIsMounted(true);
         }
       }}
     />
@@ -70,15 +76,12 @@ const FilterButton = ({ children, value, ...props }: MergeElementProps<'button',
     <Button
       className={`
         rounded-[6px] px-3 inline-flex flex-grow-1 items-center justify-center select-none text-[13px] transition-all font-bold duration-100 z-1
-        ${
-          isSelected
-            ? 'text-blue-600 ' // 선택 시: 흰색 배경에 블루 텍스트 (또는 black)
-            : 'text-gray-500 hover:text-gray-700 hover:bg-gray-200/50' // 미선택 시: 회색 텍스트
-        } 
+        ${isSelected ? 'text-blue-600 ' : 'text-gray-500 hover:text-gray-700 hover:bg-gray-200/50'} 
         ${className}
       `}
       onClick={handleClick}
       value={value}
+      size={'sm'}
       {...restProps}
     >
       {children}
@@ -98,7 +101,7 @@ const FilterBar = ({ children, defaultValue, onChange, className }: FilterBarPro
     <FilterBarContextProvider defaultValue={defaultValue} onChange={onChange}>
       <div
         className={`
-          h-8 flex w-full gap-0 p-1 items-center overflow-y-auto rounded-[8px] relative
+          h-8 flex w-full gap-0 px-1 items-center overflow-x-auto overflow-y-hidden rounded-[8px] relative
           bg-gray-200 border border-gray-200/50 ${className ?? ''}
         `}
       >

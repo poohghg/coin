@@ -27,7 +27,7 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <div className={'flex z-0 relative isolate'}>{children}</div>
+        <div className={'flex flex-col z-0 relative isolate max-w-[1200px] mx-auto'}>{children}</div>
         <ToastList />
       </body>
     </html>

@@ -6,7 +6,7 @@ import { Tabs } from '@/src/shared/uiKit';
 const HomeTabList = () => {
   return (
     <Tabs.List className="border-b border-gray-400">
-      <Tabs.ListBar />
+      <Tabs.ListBar className={'rounded-[100px]'} />
       {HomeTabs.map(({ tabKey, label }) => (
         <Tabs.Trigger
           key={tabKey}

@@ -20,6 +20,10 @@ export class CoinImpl implements Coin {
     public readonly market_event: MarketEvent
   ) {}
 
+  get symbol(): string {
+    return this.market.split('-')[1];
+  }
+
   get isWarning(): boolean {
     return this.market_event.warning;
   }
@@ -42,6 +46,7 @@ export class CoinImpl implements Coin {
 
   toJSON(): Coin {
     return {
+      symbol: this.symbol,
       market: this.market,
       korean_name: this.korean_name,
       english_name: this.english_name,

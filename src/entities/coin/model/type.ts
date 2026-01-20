@@ -12,6 +12,7 @@ export interface MarketEvent {
 }
 
 export interface Coin {
+  symbol: string;
   market: string;
   korean_name: string;
   english_name: string;

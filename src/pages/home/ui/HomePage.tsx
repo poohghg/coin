@@ -1,6 +1,6 @@
 import HomeTab from '@/src/pages/home/ui/HomeTab';
 
-const CoinPage = async () => {
+const HomePage = async () => {
   return (
     <div className={'w-full flex flex-col items-center px-3 py-2'}>
       <HomeTab />
@@ -8,4 +8,4 @@ const CoinPage = async () => {
   );
 };
 
-export default CoinPage;
+export default HomePage;
