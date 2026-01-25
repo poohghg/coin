@@ -1,6 +1,6 @@
 'use client';
 
-import { MergeElementProps } from '@/src/shared/model/reactElement';
+import { MergeElementProps } from '@/src/shared/type/reactElement';
 import { TabsContextProvider } from '@/src/shared/uiKit/components/Tabs/Context';
 import dynamic from 'next/dynamic';
 import { ReactNode } from 'react';

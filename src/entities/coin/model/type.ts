@@ -24,6 +24,7 @@ export interface Coin {
   change_rate: number; // 24시간 변동률
   signed_change_rate: number; // 24시간 변동률 부호있는 값
   trade_volume: number; // 최근 거래 수량
+  acc_trade_price: number; // 누적 거래 금액(거래 대금)
   acc_trade_price_24h: number; //24시간 누적 거래 금액(거래 대금)
   change_type: CoinChangeType;
   isWarning: boolean;
@@ -31,6 +32,7 @@ export interface Coin {
   isCautionTradingVolumeSoaring: boolean;
   isCautionDepositAmountSoaring: boolean;
   isCautionGlobalPriceDifferences: boolean;
+  isCautionConcentrationOfSmallAccounts: boolean;
 }
 
 export interface CoinDetail extends Coin {

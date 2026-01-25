@@ -1,6 +1,6 @@
 'use client';
 
-import { MergeElementProps } from '@/src/shared/model/reactElement';
+import { MergeElementProps } from '@/src/shared/type/reactElement';
 import { Button } from '@/src/shared/uiKit/ui';
 import { FilterBarContextProvider, useFilterBarContext } from '@/src/shared/uiKit/ui/FilterBar/ui/FilterBarContext';
 import { MouseEvent, ReactNode, useEffect, useState } from 'react';

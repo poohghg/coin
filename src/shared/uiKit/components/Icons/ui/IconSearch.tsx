@@ -1,4 +1,4 @@
-import { MergeElementProps } from '@/src/shared/model/reactElement';
+import { MergeElementProps } from '@/src/shared/type/reactElement';
 import React from 'react';
 
 const IconSearch = ({ ...props }: MergeElementProps<'svg'>) => {

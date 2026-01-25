@@ -1,4 +1,4 @@
-import { CoinMarketDTO, CoinMarketsSchema, CoinPriceDTO, CoinPricesSchema } from '@/src/entities/coin/api/schema';
+import { CoinMarketDTO, CoinMarketsSchema, CoinPriceDTO, CoinPricesSchema } from '@/src/entities/coin/model/schema';
 import { FetchBuilder, ISuccessResponse } from '@/src/shared/lib/api';
 
 export interface UpbitCoinApi {

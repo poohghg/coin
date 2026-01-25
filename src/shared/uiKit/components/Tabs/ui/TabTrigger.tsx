@@ -1,4 +1,4 @@
-import { MergeElementProps } from '@/src/shared/model/reactElement';
+import { MergeElementProps } from '@/src/shared/type/reactElement';
 import { cn } from '@/src/shared/uiKit';
 import { useTabsContext } from '@/src/shared/uiKit/components/Tabs/Context';
 import { forwardRef, memo, MouseEvent } from 'react';

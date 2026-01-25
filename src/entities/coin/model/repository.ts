@@ -1,7 +1,7 @@
 import { Coin } from '@/src/entities/coin';
-import { CoinMapper } from '@/src/entities/coin/api/mapper';
-import { CoinMarketDTO } from '@/src/entities/coin/api/schema';
 import { UpbitCoinApi, UpbitCoinApiImpl } from '@/src/entities/coin/api/upbitCoinApi';
+import { CoinMapper } from '@/src/entities/coin/model/mapper';
+import { CoinMarketDTO } from '@/src/entities/coin/model/schema';
 import { HttpErrorFactory } from '@/src/shared/lib/error/BaseError';
 
 export interface CoinRepository {

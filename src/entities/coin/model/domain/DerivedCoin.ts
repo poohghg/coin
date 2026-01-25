@@ -1,8 +1,7 @@
 import { Coin, CoinChangeType, MarketEvent } from '@/src/entities/coin/model/type';
 
-// 코인명,현재가,전일대비(가격, 퍼센트),거래대금
 // 구조 변경이 필요? -> BaseCoin, DerivedCoin?
-export class CoinImpl implements Coin {
+export class DerivedCoin implements Coin {
   constructor(
     public readonly market: string,
     public readonly korean_name: string,
@@ -15,6 +14,7 @@ export class CoinImpl implements Coin {
     public readonly change_rate: number,
     public readonly signed_change_rate: number,
     public readonly trade_volume: number,
+    public readonly acc_trade_price: number,
     public readonly acc_trade_price_24h: number,
     public readonly change_type: CoinChangeType,
     public readonly market_event: MarketEvent
@@ -44,6 +44,10 @@ export class CoinImpl implements Coin {
     return this.market_event.caution.GLOBAL_PRICE_DIFFERENCES;
   }
 
+  get isCautionConcentrationOfSmallAccounts(): boolean {
+    return this.market_event.caution.CONCENTRATION_OF_SMALL_ACCOUNTS;
+  }
+
   toJSON(): Coin {
     return {
       symbol: this.symbol,
@@ -58,6 +62,7 @@ export class CoinImpl implements Coin {
       change_rate: this.change_rate,
       signed_change_rate: this.signed_change_rate,
       trade_volume: this.trade_volume,
+      acc_trade_price: this.acc_trade_price,
       acc_trade_price_24h: this.acc_trade_price_24h,
       change_type: this.change_type,
       isWarning: this.isWarning,
@@ -65,6 +70,7 @@ export class CoinImpl implements Coin {
       isCautionTradingVolumeSoaring: this.isCautionTradingVolumeSoaring,
       isCautionDepositAmountSoaring: this.isCautionDepositAmountSoaring,
       isCautionGlobalPriceDifferences: this.isCautionGlobalPriceDifferences,
+      isCautionConcentrationOfSmallAccounts: this.isCautionConcentrationOfSmallAccounts,
     };
   }
 }
