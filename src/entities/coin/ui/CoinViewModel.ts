@@ -30,12 +30,16 @@ export class CoinViewModel {
     return Formatter.asKRWFormat(volume);
   }
 
+  static formatChangePrice(signed_change_price: number): string {
+    const sign = 0 <= signed_change_price ? '+' : '';
+    return `${sign}${Formatter.asKRWFormat(signed_change_price)}`;
+  }
+
   /**
    * @param signed_change_rate 부호가 있는 변동률 (예: -0.0123)
    * @returns 변동률을 백분율 형식으로 포맷팅한 문자열 (예: "-1.23%")
    * @example formatChangeRate(-0.0123) => "-1.23%"
    */
-
   static formatChangeRate(signed_change_rate: number): string {
     const sign = 0 <= signed_change_rate ? '+' : '';
     const percentage = signed_change_rate * 100;

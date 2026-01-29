@@ -16,7 +16,7 @@ const CoinListFetcher = ({ children }: CoinListFetcherProps) => {
         // if (error.equals(HttpErrorCodes.TOO_MANY_REQUESTS)) {
         //   return <>Rate limit exceeded. Please try again later.</>;
         // }
-        // return <>An error occurred while fetching coin data.</>;
+        // return <>An error occurred while fetching market data.</>;
       }}
     >
       {data => children(data)}

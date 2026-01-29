@@ -1,10 +1,10 @@
-import { CoinMarketDTO, CoinMarketsSchema, CoinPriceDTO, CoinPricesSchema } from '@/src/entities/coin/model/schema';
+import { CoinMarketDTO, CoinMarketsSchema, CoinTickerDTO, CoinTickersSchema } from '@/src/entities/coin/model/schema';
 import { FetchBuilder, ISuccessResponse } from '@/src/shared/lib/api';
 
 export interface UpbitCoinApi {
   fetchCoinMarketAll(): Promise<ISuccessResponse<CoinMarketDTO[]>>;
-  fetchCoinPrice(): Promise<ISuccessResponse<CoinPriceDTO[]>>;
-  fetchCoinPriceByMarket(market: string): Promise<ISuccessResponse<CoinPriceDTO[]>>;
+  fetchCoinTicker(): Promise<ISuccessResponse<CoinTickerDTO[]>>;
+  fetchCoinTickerByMarket(market: string): Promise<ISuccessResponse<CoinTickerDTO[]>>;
 }
 
 export class UpbitCoinApiImpl implements UpbitCoinApi {
@@ -31,18 +31,18 @@ export class UpbitCoinApiImpl implements UpbitCoinApi {
    * 업비트에서 KRW 마켓의 모든 코인 시세 정보를 가져옵니다.
    * https://docs.upbit.com/kr/reference/list-quote-tickers
    */
-  async fetchCoinPrice() {
+  async fetchCoinTicker() {
     const url = 'https://api.upbit.com/v1/ticker/all';
     const res = await new FetchBuilder(url)
       .params({
         quote_currencies: 'KRW',
       })
       .build()
-      .request<CoinPriceDTO[]>();
+      .request<CoinTickerDTO[]>();
 
     return {
       ...res,
-      data: CoinPricesSchema.parse(res.data),
+      data: CoinTickersSchema.parse(res.data),
     };
   }
 
@@ -51,18 +51,18 @@ export class UpbitCoinApiImpl implements UpbitCoinApi {
    * 페어 단위 현재가 조회
    * https://api.upbit.com/v1/ticker
    */
-  async fetchCoinPriceByMarket(market: string) {
+  async fetchCoinTickerByMarket(market: string) {
     const url = 'https://api.upbit.com/v1/ticker';
     const res = await new FetchBuilder(url)
       .params({
         markets: market,
       })
       .build()
-      .request<CoinPriceDTO[]>();
+      .request<CoinTickerDTO[]>();
 
     return {
       ...res,
-      data: CoinPricesSchema.parse(res.data),
+      data: CoinTickersSchema.parse(res.data),
     };
   }
 }

@@ -1,7 +1,7 @@
 import { Coin } from '@/src/entities/coin';
 import { useUpbitSocketBase } from '@/src/entities/coin/lib/useUpbitSocketBase';
 import { CoinMapper } from '@/src/entities/coin/model/mapper';
-import { UpbitSocketTickerDTO, UpbitSocketTickerPartialSchema } from '@/src/entities/coin/model/schema';
+import { UpbitSocketTickerDTO, UpbitSocketTickerSchema } from '@/src/entities/coin/model/schema';
 import { useMemo } from 'react';
 
 export const useLiveCoin = (code: string, initialCoin: Coin) => {
@@ -15,7 +15,7 @@ export const useLiveCoin = (code: string, initialCoin: Coin) => {
       return initialCoin;
     }
 
-    const result = UpbitSocketTickerPartialSchema.safeParse(socketData);
+    const result = UpbitSocketTickerSchema.safeParse(socketData);
 
     if (!result.success) {
       if (process.env.NODE_ENV === 'development') {

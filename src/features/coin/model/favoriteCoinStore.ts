@@ -9,7 +9,7 @@ export interface FavoriteStoreState {
   isFavorite: (coinId: string) => boolean;
 }
 
-const FAVORITE_STORAGE_KEY = 'favorite-coin-ids';
+const FAVORITE_STORAGE_KEY = 'favorite-market-ids';
 
 export const useFavoriteCoinStore = create<FavoriteStoreState>()(
   persist(

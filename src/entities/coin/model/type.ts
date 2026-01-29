@@ -17,13 +17,8 @@ export interface Coin {
   korean_name: string;
   english_name: string;
   trade_price: number;
-  opening_price: number;
-  high_price: number;
-  low_price: number;
-  change_price: number;
-  change_rate: number; // 24시간 변동률
+  signed_change_price: number; // 24시간 변동가 부호있는 값
   signed_change_rate: number; // 24시간 변동률 부호있는 값
-  trade_volume: number; // 최근 거래 수량
   acc_trade_price: number; // 누적 거래 금액(거래 대금)
   acc_trade_price_24h: number; //24시간 누적 거래 금액(거래 대금)
   change_type: CoinChangeType;
@@ -33,16 +28,16 @@ export interface Coin {
   isCautionDepositAmountSoaring: boolean;
   isCautionGlobalPriceDifferences: boolean;
   isCautionConcentrationOfSmallAccounts: boolean;
+  timestamp: number;
 }
 
 export interface CoinDetail extends Coin {
-  opening_price: number;
+  opening_price: number; //시가
   high_price: number;
   low_price: number;
-  prev_closing_price: number;
+  prev_closing_price: number; //전일 종가
 
-  acc_trade_price: number;
-  acc_trade_price_24h: number;
+  trade_volume: number;
   acc_trade_volume: number;
   acc_trade_volume_24h: number;
 
@@ -50,4 +45,32 @@ export interface CoinDetail extends Coin {
   highest_52_week_date: string;
   lowest_52_week_price: number;
   lowest_52_week_date: string;
+}
+
+export interface OrderbookUnit {
+  askPrice: number;
+  bidPrice: number;
+  askSize: number;
+  bidSize: number;
+}
+
+export interface Orderbook {
+  market: string;
+  timestamp: number;
+  totalAskSize: number;
+  totalBidSize: number;
+  units: OrderbookUnit[];
+}
+
+export interface OrderbookPolicy {
+  market: string;
+  priceUnit: number;
+}
+
+export interface Trade {
+  market: string;
+  price: number;
+  volume: number;
+  side: 'BUY' | 'SELL';
+  timestamp: number;
 }

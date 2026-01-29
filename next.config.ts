@@ -7,7 +7,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'coin-images.coingecko.com',
+        hostname: 'market-images.coingecko.com',
         port: '',
         pathname: '/**',
       },
