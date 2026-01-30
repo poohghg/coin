@@ -34,7 +34,7 @@ const ListRow = ({ coin, rank }: { coin: Coin; rank: number }) => {
   const changeAnimation = CoinViewModel.changeAnimationClass(liveCoin.change_type);
 
   return (
-    <li className="w-full max-[360px]:text-[0.8125em] max-[320px]:text-[0.6875em]">
+    <li className="h-[69px] w-full max-[360px]:text-[0.8125em] max-[320px]:text-[0.6875em]">
       <Link
         className="flex cursor-pointer items-center rounded-2xl py-3 text-[15px] transition-colors duration-200 hover:bg-gray-200 hover:text-black"
         href={routers.market(coin.market)}

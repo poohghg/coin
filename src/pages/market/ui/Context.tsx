@@ -1,7 +1,7 @@
 'use client';
 
 import { CandlestickData, CandlestickSeries, ColorType, createChart, IChartApi, Time } from 'lightweight-charts';
-import { ArrowLeft, Bell, ChevronDown, Minus, Plus, Star } from 'lucide-react'; // --- 타입 정의 ---
+import { Star } from 'lucide-react'; // --- 타입 정의 ---
 import React, { useEffect, useRef, useState } from 'react';
 
 // --- 타입 정의 ---
@@ -154,58 +154,6 @@ export default function CoinDetail() {
 
   return (
     <div className="pd-[10 00px] mx-auto w-full border-x border-gray-100 bg-white font-sans text-gray-900 shadow-xl select-none">
-      {/* 1. 상단 헤더 */}
-      <div className="sticky top-0 z-30 border-b border-gray-100 bg-white p-4">
-        <div className="mb-2 flex items-center justify-between">
-          <ArrowLeft className="h-6 w-6 cursor-pointer text-gray-800" />
-          <div className="flex flex-col items-center">
-            <span className="text-lg font-bold">비트코인</span>
-            <div className="flex items-center gap-1 text-xs text-gray-400">
-              <span>BTC/KRW</span>
-              <ChevronDown className="h-3 w-3" />
-            </div>
-          </div>
-          <div className="flex gap-3">
-            <Bell className="h-6 w-6 text-gray-400" />
-            <Star className="h-6 w-6 text-gray-400" />
-          </div>
-        </div>
-
-        <div
-          className={`flex items-baseline gap-2 ${dummyTicker.change === 'RISE' ? 'text-red-500' : 'text-blue-500'}`}
-        >
-          <span className="text-3xl font-extrabold">{dummyTicker.trade_price.toLocaleString()}</span>
-          <div className="flex flex-col text-xs leading-tight font-medium">
-            <span>
-              {dummyTicker.change_rate > 0 ? '+' : ''}
-              {(dummyTicker.change_rate * 100).toFixed(2)}%
-            </span>
-            <span>
-              {dummyTicker.change_price > 0 ? '▲' : '▼'} {dummyTicker.change_price.toLocaleString()}
-            </span>
-          </div>
-        </div>
-      </div>
-
-      {/* 2. 탭 메뉴 */}
-      <div className="sticky top-[108px] z-20 flex border-b border-gray-100 bg-white">
-        {['호가', '차트', '내주식'].map(tab => {
-          const tabKey = tab === '호가' ? 'order' : tab === '차트' ? 'chart' : 'my';
-          const isActive = activeTab === tabKey;
-          return (
-            <button
-              key={tab}
-              onClick={() => setActiveTab(tabKey as any)}
-              className={`flex-1 border-b-2 py-3 text-sm font-bold transition-colors ${
-                isActive ? 'border-gray-900 text-gray-900' : 'border-transparent text-gray-400'
-              }`}
-            >
-              {tab}
-            </button>
-          );
-        })}
-      </div>
-
       {/* 3. 메인 컨텐츠 */}
       <div className="bg-white pb-[280px]">
         {/* --- TAB: 호가 (Orderbook) --- */}
@@ -300,7 +248,7 @@ export default function CoinDetail() {
                   <div className="flex justify-between">
                     <span className="text-gray-400">52주 최저</span>
                     <span className="font-medium text-gray-700">
-                      {dummyTicker.lowest_52_week_price?.toLocaleString() || '48,333'}
+                      {/*{dummyTicker.lowest_52_week_price?.toLocaleString() || '48,333'}*/}
                     </span>
                   </div>
                   <div className="my-1 h-px bg-gray-100" />
@@ -384,86 +332,86 @@ export default function CoinDetail() {
       </div>
 
       {/* 4. 하단 주문창 (Order Sheet) */}
-      <div className="fixed bottom-0 z-50 w-full max-w-md overflow-hidden rounded-t-2xl bg-white shadow-[0_-5px_30px_rgba(0,0,0,0.1)]">
-        <div className="flex">
-          <button
-            onClick={() => setOrderType('buy')}
-            className={`flex-1 py-3 text-sm font-bold transition-colors ${orderType === 'buy' ? 'border-t-2 border-red-500 bg-white text-red-500' : 'border-t border-gray-100 bg-gray-50 text-gray-400'}`}
-          >
-            매수
-          </button>
-          <button
-            onClick={() => setOrderType('sell')}
-            className={`flex-1 py-3 text-sm font-bold transition-colors ${orderType === 'sell' ? 'border-t-2 border-blue-500 bg-white text-blue-500' : 'border-t border-gray-100 bg-gray-50 text-gray-400'}`}
-          >
-            매도
-          </button>
-        </div>
+      {/*<div className="fixed bottom-0 z-50 w-full max-w-md overflow-hidden rounded-t-2xl bg-white shadow-[0_-5px_30px_rgba(0,0,0,0.1)]">*/}
+      {/*  <div className="flex">*/}
+      {/*    <button*/}
+      {/*      onClick={() => setOrderType('buy')}*/}
+      {/*      className={`flex-1 py-3 text-sm font-bold transition-colors ${orderType === 'buy' ? 'border-t-2 border-red-500 bg-white text-red-500' : 'border-t border-gray-100 bg-gray-50 text-gray-400'}`}*/}
+      {/*    >*/}
+      {/*      매수*/}
+      {/*    </button>*/}
+      {/*    <button*/}
+      {/*      onClick={() => setOrderType('sell')}*/}
+      {/*      className={`flex-1 py-3 text-sm font-bold transition-colors ${orderType === 'sell' ? 'border-t-2 border-blue-500 bg-white text-blue-500' : 'border-t border-gray-100 bg-gray-50 text-gray-400'}`}*/}
+      {/*    >*/}
+      {/*      매도*/}
+      {/*    </button>*/}
+      {/*  </div>*/}
 
-        <div className="space-y-4 p-5">
-          <div className="flex items-center justify-between">
-            <span className="w-12 text-sm font-bold text-gray-500">가격</span>
-            <div className="flex flex-1 items-center justify-end gap-2">
-              <button onClick={() => setPrice(p => p - 1000)} className="rounded-full p-2 hover:bg-gray-100">
-                <Minus className="h-4 w-4 text-gray-400" />
-              </button>
-              <input
-                type="number"
-                value={price}
-                onChange={e => setPrice(Number(e.target.value))}
-                className="w-32 border-b border-gray-200 p-1 text-right text-lg font-bold outline-none focus:border-black"
-              />
-              <span className="text-sm font-medium">원</span>
-              <button onClick={() => setPrice(p => p + 1000)} className="rounded-full p-2 hover:bg-gray-100">
-                <Plus className="h-4 w-4 text-gray-400" />
-              </button>
-            </div>
-          </div>
+      {/*  <div className="space-y-4 p-5">*/}
+      {/*    <div className="flex items-center justify-between">*/}
+      {/*      <span className="w-12 text-sm font-bold text-gray-500">가격</span>*/}
+      {/*      <div className="flex flex-1 items-center justify-end gap-2">*/}
+      {/*        <button onClick={() => setPrice(p => p - 1000)} className="rounded-full p-2 hover:bg-gray-100">*/}
+      {/*          <Minus className="h-4 w-4 text-gray-400" />*/}
+      {/*        </button>*/}
+      {/*        <input*/}
+      {/*          type="number"*/}
+      {/*          value={price}*/}
+      {/*          onChange={e => setPrice(Number(e.target.value))}*/}
+      {/*          className="w-32 border-b border-gray-200 p-1 text-right text-lg font-bold outline-none focus:border-black"*/}
+      {/*        />*/}
+      {/*        <span className="text-sm font-medium">원</span>*/}
+      {/*        <button onClick={() => setPrice(p => p + 1000)} className="rounded-full p-2 hover:bg-gray-100">*/}
+      {/*          <Plus className="h-4 w-4 text-gray-400" />*/}
+      {/*        </button>*/}
+      {/*      </div>*/}
+      {/*    </div>*/}
 
-          <div className="flex items-center justify-between">
-            <span className="w-12 text-sm font-bold text-gray-500">수량</span>
-            <div className="flex flex-1 flex-col items-end gap-2">
-              <div className="flex items-center gap-2">
-                <input
-                  type="text"
-                  placeholder="0"
-                  value={amount}
-                  onChange={e => setAmount(e.target.value)}
-                  className="w-32 border-b border-gray-200 p-1 text-right text-lg font-bold placeholder-gray-200 outline-none focus:border-black"
-                />
-                <span className="text-sm font-medium">BTC</span>
-              </div>
-              <div className="flex gap-1">
-                {[10, 25, 50, 100].map(pct => (
-                  <button
-                    key={pct}
-                    className="rounded bg-gray-100 px-2 py-1 text-[10px] font-medium text-gray-500 hover:bg-gray-200"
-                    onClick={() => setAmount((0.5 * (pct / 100)).toString())}
-                  >
-                    {pct === 100 ? '최대' : `${pct}%`}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
+      {/*    <div className="flex items-center justify-between">*/}
+      {/*      <span className="w-12 text-sm font-bold text-gray-500">수량</span>*/}
+      {/*      <div className="flex flex-1 flex-col items-end gap-2">*/}
+      {/*        <div className="flex items-center gap-2">*/}
+      {/*          <input*/}
+      {/*            type="text"*/}
+      {/*            placeholder="0"*/}
+      {/*            value={amount}*/}
+      {/*            onChange={e => setAmount(e.target.value)}*/}
+      {/*            className="w-32 border-b border-gray-200 p-1 text-right text-lg font-bold placeholder-gray-200 outline-none focus:border-black"*/}
+      {/*          />*/}
+      {/*          <span className="text-sm font-medium">BTC</span>*/}
+      {/*        </div>*/}
+      {/*        <div className="flex gap-1">*/}
+      {/*          {[10, 25, 50, 100].map(pct => (*/}
+      {/*            <button*/}
+      {/*              key={pct}*/}
+      {/*              className="rounded bg-gray-100 px-2 py-1 text-[10px] font-medium text-gray-500 hover:bg-gray-200"*/}
+      {/*              onClick={() => setAmount((0.5 * (pct / 100)).toString())}*/}
+      {/*            >*/}
+      {/*              {pct === 100 ? '최대' : `${pct}%`}*/}
+      {/*            </button>*/}
+      {/*          ))}*/}
+      {/*        </div>*/}
+      {/*      </div>*/}
+      {/*    </div>*/}
 
-          <div className="mt-2 flex items-center justify-between border-t border-dashed border-gray-200 py-3">
-            <span className="text-sm text-gray-500">총 주문금액</span>
-            <span className="text-xl font-bold">
-              {totalAmount > 0 ? totalAmount.toLocaleString() : '0'}
-              <span className="ml-1 text-sm font-normal text-gray-500">원</span>
-            </span>
-          </div>
+      {/*    <div className="mt-2 flex items-center justify-between border-t border-dashed border-gray-200 py-3">*/}
+      {/*      <span className="text-sm text-gray-500">총 주문금액</span>*/}
+      {/*      <span className="text-xl font-bold">*/}
+      {/*        {totalAmount > 0 ? totalAmount.toLocaleString() : '0'}*/}
+      {/*        <span className="ml-1 text-sm font-normal text-gray-500">원</span>*/}
+      {/*      </span>*/}
+      {/*    </div>*/}
 
-          <button
-            className={`w-full rounded-xl py-4 text-lg font-bold text-white shadow-md transition-transform active:scale-[0.98] ${
-              orderType === 'buy' ? 'bg-red-500 hover:bg-red-600' : 'bg-blue-500 hover:bg-blue-600'
-            }`}
-          >
-            {orderType === 'buy' ? '매수하기' : '매도하기'}
-          </button>
-        </div>
-      </div>
+      {/*    <button*/}
+      {/*      className={`w-full rounded-xl py-4 text-lg font-bold text-white shadow-md transition-transform active:scale-[0.98] ${*/}
+      {/*        orderType === 'buy' ? 'bg-red-500 hover:bg-red-600' : 'bg-blue-500 hover:bg-blue-600'*/}
+      {/*      }`}*/}
+      {/*    >*/}
+      {/*      {orderType === 'buy' ? '매수하기' : '매도하기'}*/}
+      {/*    </button>*/}
+      {/*  </div>*/}
+      {/*</div>*/}
     </div>
   );
 }

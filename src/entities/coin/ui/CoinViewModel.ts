@@ -8,8 +8,20 @@ export class CoinViewModel {
    * @example formatPrice(1234) => "₩1,234"
    */
 
+  private static krwFormatter = new Intl.NumberFormat('ko-KR', {
+    currency: 'KRW',
+    maximumSignificantDigits: 6,
+  });
+
+  /**
+   * @param price
+   * @returns 가격을 한국 원화(KRW) 형식으로 포맷팅한 문자열 (예: "1,234원")
+   * @example formatPrice(1234) => "1,234원"
+   * @example 0.001 => "0.001원"
+   */
+
   static formatPrice(price: number): string {
-    return Formatter.asKRWFormat(price);
+    return this.krwFormatter.format(price) + '원';
   }
 
   /**
@@ -32,7 +44,7 @@ export class CoinViewModel {
 
   static formatChangePrice(signed_change_price: number): string {
     const sign = 0 <= signed_change_price ? '+' : '';
-    return `${sign}${Formatter.asKRWFormat(signed_change_price)}`;
+    return `${sign}${this.formatPrice(signed_change_price)}`;
   }
 
   /**
@@ -46,7 +58,7 @@ export class CoinViewModel {
     return `${sign}${percentage.toFixed(2)}%`;
   }
 
-  static changeColor(type: CoinChangeType, size: number = 500): string {
+  static changeColor(type: CoinChangeType): string {
     if (type === 'RISE') return `text-red-500`;
     if (type === 'FALL') return `text-blue-500`;
     return `text-gray-500`;

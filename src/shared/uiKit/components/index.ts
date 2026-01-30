@@ -1,6 +1,6 @@
 export { SwitchCase } from './SwitchCase';
 export { SkeletonBox } from './SkeletonBox';
-export { Tabs } from './Tabs';
+export { Tabs, TabsPanel, TabsListActive, TabsList, TabsTrigger } from './Tabs';
 export { ToastList, toasts } from './Toast';
 export { LoadCircleIcon } from './Icons';
 export { SearchBar } from './SearchBar';

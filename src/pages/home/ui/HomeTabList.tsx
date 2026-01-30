@@ -1,22 +1,18 @@
 'use client';
 
 import { HomeTabs } from '@/src/pages/home/constant';
-import { Tabs } from '@/src/shared/uiKit';
+import { TabsList, TabsListActive, TabsTrigger } from '@/src/shared/uiKit';
 
 const HomeTabList = () => {
   return (
-    <Tabs.List className="border-b border-gray-400">
-      <Tabs.ListBar className={'rounded-[100px]'} />
+    <TabsList className="border-b border-gray-400">
+      <TabsListActive className={'rounded-[100px]'} />
       {HomeTabs.map(({ tabKey, label }) => (
-        <Tabs.Trigger
-          key={tabKey}
-          className="px-4 py-3 text-[15px] font-semibold text-gray-400 aria-selected:text-blue-600 hover:text-blue-500 transition duration-75"
-          tabKey={tabKey}
-        >
+        <TabsTrigger key={tabKey} tabKey={tabKey}>
           {label}
-        </Tabs.Trigger>
+        </TabsTrigger>
       ))}
-    </Tabs.List>
+    </TabsList>
   );
 };
 

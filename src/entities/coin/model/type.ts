@@ -46,31 +46,3 @@ export interface CoinDetail extends Coin {
   lowest_52_week_price: number;
   lowest_52_week_date: string;
 }
-
-export interface OrderbookUnit {
-  askPrice: number;
-  bidPrice: number;
-  askSize: number;
-  bidSize: number;
-}
-
-export interface Orderbook {
-  market: string;
-  timestamp: number;
-  totalAskSize: number;
-  totalBidSize: number;
-  units: OrderbookUnit[];
-}
-
-export interface OrderbookPolicy {
-  market: string;
-  priceUnit: number;
-}
-
-export interface Trade {
-  market: string;
-  price: number;
-  volume: number;
-  side: 'BUY' | 'SELL';
-  timestamp: number;
-}

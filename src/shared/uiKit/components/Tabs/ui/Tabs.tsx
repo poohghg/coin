@@ -2,13 +2,11 @@
 
 import { MergeElementProps } from '@/src/shared/type/reactElement';
 import { TabsContextProvider } from '@/src/shared/uiKit/components/Tabs/Context';
-import dynamic from 'next/dynamic';
+import TabsList from '@/src/shared/uiKit/components/Tabs/ui/TabsList';
+import TabsListActive from '@/src/shared/uiKit/components/Tabs/ui/TabsListActive';
+import TabsPanel from '@/src/shared/uiKit/components/Tabs/ui/TabsPanel';
+import TabsTrigger from '@/src/shared/uiKit/components/Tabs/ui/TabsTrigger';
 import { ElementType, ReactNode } from 'react';
-
-const TabPanel = dynamic(() => import('@/src/shared/uiKit/components/Tabs/ui/TabPanel'));
-const TabsList = dynamic(() => import('@/src/shared/uiKit/components/Tabs/ui/TabList'));
-const TabTrigger = dynamic(() => import('@/src/shared/uiKit/components/Tabs/ui/TabTrigger'));
-const TabListBar = dynamic(() => import('@/src/shared/uiKit/components/Tabs/ui/TabListBar'));
 
 interface TabsProps {
   children: ReactNode;
@@ -30,9 +28,4 @@ const Tabs = ({ controlledKey, defaultKey, as, onChange, children, ...props }: M
 
 Tabs.displayName = 'Tabs';
 
-export default Object.assign(Tabs, {
-  List: TabsList,
-  Panel: TabPanel,
-  Trigger: TabTrigger,
-  ListBar: TabListBar,
-});
+export { Tabs, TabsList, TabsPanel, TabsTrigger, TabsListActive };

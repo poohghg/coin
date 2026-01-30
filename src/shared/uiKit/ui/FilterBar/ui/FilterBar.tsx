@@ -10,7 +10,7 @@ interface FilterButtonProps {
   value: string;
 }
 
-const ActiveFilter = () => {
+export const ActiveFilter = () => {
   const [isMounted, setIsMounted] = useState(false);
   const { selectedValue } = useFilterBarContext();
 
@@ -36,7 +36,7 @@ const ActiveFilter = () => {
   return (
     <div
       id={'active-filter-indicator'}
-      className={`absolute top-0 left-0 m-[2px] bg-white shadow-[0_2px_4px_rgba(0,0,0,0.1)] rounded-[6px] transition-all ease-out pointer-events-none ${
+      className={`pointer-events-none absolute top-0 left-0 m-[2px] rounded-[6px] bg-white shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all ease-out ${
         isMounted ? 'duration-200' : 'opacity-0'
       }`}
       style={{
@@ -60,7 +60,7 @@ const ActiveFilter = () => {
     />
   );
 };
-const FilterButton = ({ children, value, ...props }: MergeElementProps<'button', FilterButtonProps>) => {
+export const FilterButton = ({ children, value, ...props }: MergeElementProps<'button', FilterButtonProps>) => {
   const { className, onClick, ...restProps } = props;
 
   const { selectedValue, setSelectedValue } = useFilterBarContext();
@@ -74,11 +74,7 @@ const FilterButton = ({ children, value, ...props }: MergeElementProps<'button',
 
   return (
     <Button
-      className={`
-        rounded-[6px] px-3 inline-flex flex-grow-1 items-center justify-center select-none text-[13px] transition-all font-bold duration-100 z-1
-        ${isSelected ? 'text-blue-600 ' : 'text-gray-500 hover:text-gray-700 hover:bg-gray-200/50'} 
-        ${className}
-      `}
+      className={`z-1 inline-flex flex-grow-1 items-center justify-center rounded-[6px] px-3 text-[13px] font-bold transition-all duration-100 select-none ${isSelected ? 'text-blue-600' : 'text-gray-500 hover:bg-gray-200/50 hover:text-gray-700'} ${className} `}
       onClick={handleClick}
       value={value}
       size={'sm'}
@@ -96,14 +92,11 @@ interface FilterBarProps {
   className?: string;
 }
 
-const FilterBar = ({ children, defaultValue, onChange, className }: FilterBarProps) => {
+export const FilterBar = ({ children, defaultValue, onChange, className }: FilterBarProps) => {
   return (
     <FilterBarContextProvider defaultValue={defaultValue} onChange={onChange}>
       <div
-        className={`
-          h-8 flex w-full gap-0 px-1 items-center overflow-x-auto overflow-y-hidden rounded-[8px] relative
-          bg-gray-200 border border-gray-200/50 ${className ?? ''}
-        `}
+        className={`relative flex h-8 w-full items-center gap-0 overflow-x-auto overflow-y-hidden rounded-[8px] border border-gray-200/50 bg-gray-200 px-1 ${className ?? ''} `}
       >
         {children}
       </div>

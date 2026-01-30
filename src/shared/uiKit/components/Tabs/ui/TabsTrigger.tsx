@@ -1,14 +1,14 @@
 import { MergeElementProps } from '@/src/shared/type/reactElement';
 import { cn } from '@/src/shared/uiKit';
 import { useTabsContext } from '@/src/shared/uiKit/components/Tabs/Context';
-import { forwardRef, memo, MouseEvent } from 'react';
+import { forwardRef, MouseEvent } from 'react';
 
 interface TabsTriggerProps {
   tabKey: string;
   className?: string;
 }
 
-const TabTrigger = forwardRef<HTMLButtonElement, MergeElementProps<'button', TabsTriggerProps>>(
+const TabsTrigger = forwardRef<HTMLButtonElement, MergeElementProps<'button', TabsTriggerProps>>(
   ({ tabKey, className, onClick, ...props }, ref) => {
     const { selectedKey, setSelectedKey } = useTabsContext();
 
@@ -30,7 +30,10 @@ const TabTrigger = forwardRef<HTMLButtonElement, MergeElementProps<'button', Tab
         tabIndex={0}
         aria-selected={isSelected}
         onClick={handleClick}
-        className={cn(className)}
+        className={cn(
+          'z-1 px-4 py-2 text-[15px] font-semibold text-gray-400 transition duration-75 hover:text-blue-500 aria-selected:text-blue-600',
+          className
+        )}
         id={`tab-${tabKey}`}
         {...props}
       >
@@ -40,6 +43,5 @@ const TabTrigger = forwardRef<HTMLButtonElement, MergeElementProps<'button', Tab
   }
 );
 
-TabTrigger.displayName = 'TabTrigger';
-
-export default memo(TabTrigger);
+TabsTrigger.displayName = 'TabsTrigger';
+export default TabsTrigger;

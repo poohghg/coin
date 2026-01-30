@@ -1,9 +1,11 @@
+'use client';
+
 import { MergeElementProps } from '@/src/shared/type/reactElement';
-import { forwardRef, memo } from 'react';
+import { forwardRef } from 'react';
 
 interface TabsListProps {}
 
-const TabList = forwardRef<HTMLDivElement, MergeElementProps<'div', TabsListProps>>(({ className, ...props }, ref) => {
+const TabsList = forwardRef<HTMLDivElement, MergeElementProps<'div', {}>>(({ className, ...props }, ref) => {
   return (
     <div ref={ref} role="tablist" className={`relative flex overflow-y-auto ${className}`} {...props}>
       {props.children}
@@ -11,5 +13,5 @@ const TabList = forwardRef<HTMLDivElement, MergeElementProps<'div', TabsListProp
   );
 });
 
-TabList.displayName = 'TabList';
-export default memo(TabList);
+TabsList.displayName = 'TabsList';
+export default TabsList;

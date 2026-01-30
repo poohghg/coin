@@ -1,28 +1,30 @@
-import { Coin, CoinRepository, CoinRepositoryImpl } from '@/src/entities/coin';
+import { CoinRepository, CoinRepositoryImpl } from '@/src/entities/coin';
+import { CoinDetail } from '@/src/entities/coin/model/type';
+import { OrderbookRepository, OrderbookRepositoryImpl } from '@/src/entities/orderbook/model/repository';
+import { Orderbook } from '@/src/entities/orderbook/model/type';
 
-interface HomeUseCase {
-  getCoinList(): Promise<{
-    data: Coin[];
-    fetchedAt: Date;
-  }>;
+interface MarketUseCase {
+  getCoinDetail(market: string): Promise<CoinDetail>;
+  getOrderbook(market: string): Promise<Orderbook>;
 }
 
-class MarketService implements HomeUseCase {
-  constructor(private coinRepository: CoinRepository) {
+class MarketService implements MarketUseCase {
+  constructor(
+    private coinRepository: CoinRepository,
+    private orderbookRepository: OrderbookRepository
+  ) {
     this.coinRepository = coinRepository;
   }
 
   getCoinDetail = async (market: string) => {
-    const date = new Date();
+    return await this.coinRepository.getCoinDetail(market);
+  };
 
-    const coin = await this.coinRepository.getCoinDetail(market);
-
-    return {
-      data: coin,
-      fetchedAt: date,
-    };
+  getOrderbook = async (market: string) => {
+    return await this.orderbookRepository.getOrderbook(market);
   };
 }
 
 const coinRepository = new CoinRepositoryImpl();
-export const homeUseCase = new MarketService(coinRepository);
+const orderbookRepository = new OrderbookRepositoryImpl();
+export const marketService = new MarketService(coinRepository, orderbookRepository);
