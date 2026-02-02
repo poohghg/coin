@@ -1,2 +1,2 @@
-export { CoinListFetcher } from './ui';
+export { CoinViewModel } from './ui';
 export * from './model';

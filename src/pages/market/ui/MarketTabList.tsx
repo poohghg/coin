@@ -2,7 +2,7 @@ import { TabsList, TabsListActive, TabsTrigger } from '@/src/shared/uiKit';
 
 export const MarketTabList = () => {
   return (
-    <div className="py-3">
+    <div className="sticky top-[64px] z-50 border-b border-gray-300 bg-white py-3">
       <TabsList>
         <TabsListActive type={'button'} />
         <TabsTrigger className="text-[15px] font-semibold text-gray-400" tabKey={'a'}>

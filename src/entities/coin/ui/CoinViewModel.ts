@@ -13,22 +13,22 @@ export class CoinViewModel {
     maximumSignificantDigits: 6,
   });
 
-  /**
-   * @param price
-   * @returns 가격을 한국 원화(KRW) 형식으로 포맷팅한 문자열 (예: "1,234원")
-   * @example formatPrice(1234) => "1,234원"
-   * @example 0.001 => "0.001원"
-   */
+  static getChangeRate(price: number, closing_price: number) {
+    if (closing_price === 0) return 0;
+    return (price - closing_price) / closing_price;
+  }
 
-  static formatPrice(price: number): string {
-    return this.krwFormatter.format(price) + '원';
+  static getChangeType(price: number, closing_price: number): CoinChangeType {
+    if (price > closing_price) return 'RISE';
+    if (price < closing_price) return 'FALL';
+    return 'EVEN';
   }
 
   /**
    * @param volume
    * @returns 거래대금을 백만,천만,억 단위로 포맷팅한 문자열 (예: "1백만", "2천만", "3억")
    */
-  static formatVolume(volume: number): string {
+  static formatTradePrice(volume: number): string {
     if (100_000_000 <= volume) {
       const hundredMillionUnits = Formatter.asKRWNumeric(volume) / 100_000_000;
       return Formatter.asGeneralNumber(hundredMillionUnits) + '억';
@@ -42,7 +42,21 @@ export class CoinViewModel {
     return Formatter.asKRWFormat(volume);
   }
 
-  static formatChangePrice(signed_change_price: number): string {
+  static formatVolume(volume: number): string {
+    return new Intl.NumberFormat('en-US', { minimumFractionDigits: 3, maximumFractionDigits: 3 }).format(volume);
+  }
+
+  /**
+   * @param price
+   * @returns 가격을 한국 원화(KRW) 형식으로 포맷팅한 문자열 (예: "1,234원")
+   * @example formatPrice(1234) => "1,234원"
+   * @example 0.001 => "0.001원"
+   */
+  static formatPrice(price: number): string {
+    return this.krwFormatter.format(price) + '원';
+  }
+
+  static formatSignedPrice(signed_change_price: number): string {
     const sign = 0 <= signed_change_price ? '+' : '';
     return `${sign}${this.formatPrice(signed_change_price)}`;
   }
@@ -58,7 +72,7 @@ export class CoinViewModel {
     return `${sign}${percentage.toFixed(2)}%`;
   }
 
-  static changeColor(type: CoinChangeType): string {
+  static changeColorClass(type: CoinChangeType): string {
     if (type === 'RISE') return `text-red-500`;
     if (type === 'FALL') return `text-blue-500`;
     return `text-gray-500`;

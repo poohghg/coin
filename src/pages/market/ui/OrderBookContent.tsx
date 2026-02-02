@@ -12,9 +12,7 @@ interface OrderListProps {
 
 const renderRowHeight = 'h-[44px]'; // 행
 
-export const OrderBook = ({ coin, orderBook }: OrderListProps) => {
-  console.log(orderBook.units);
-
+export const OrderBookContent = ({ coin, orderBook }: OrderListProps) => {
   return (
     <div className="animate-fade-in text-sm">
       {/* 3열 레이아웃: 좌측(체결/잔량) | 중앙(가격) | 우측(정보/잔량) */}

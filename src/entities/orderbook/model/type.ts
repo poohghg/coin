@@ -1,3 +1,5 @@
+export type TradeSide = 'ASK' | 'BID'; // ask: 매도, bid: 매수
+
 export interface OrderbookUnit {
   askPrice: number;
   bidPrice: number;

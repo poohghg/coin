@@ -71,7 +71,7 @@ export default class FetchBuilder {
   }
 
   public params(params: Params) {
-    this._params = params;
+    this._params = { ...this._params, ...params };
     return this;
   }
 

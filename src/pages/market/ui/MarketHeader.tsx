@@ -10,7 +10,7 @@ interface DetailHeaderProps {
 }
 
 export const MarketHeader = ({ coin }: DetailHeaderProps) => {
-  const changeColor = CoinViewModel.changeColor(coin.change_type);
+  const changeColor = CoinViewModel.changeColorClass(coin.change_type);
   return (
     <section className="flex items-center justify-between px-3 py-3 shadow-sm">
       <div className="flex flex-grow flex-col">
@@ -24,7 +24,7 @@ export const MarketHeader = ({ coin }: DetailHeaderProps) => {
           <div className="text-3xl font-bold text-gray-900">{coin.trade_price.toLocaleString()}원</div>
           <div className={`text-sm font-medium`}>
             <span>어제보다</span>
-            <span className={`${changeColor}`}> {CoinViewModel.formatChangePrice(coin.signed_change_price)}</span>
+            <span className={`${changeColor}`}> {CoinViewModel.formatSignedPrice(coin.signed_change_price)}</span>
             <span className={`${changeColor}`}> ({CoinViewModel.formatChangeRate(coin.signed_change_rate)})</span>
           </div>
         </div>

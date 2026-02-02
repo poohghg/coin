@@ -1,9 +1,12 @@
+import { cn } from '@/src/shared/uiKit';
+
 interface SpacingProps {
   size: number;
+  className?: string;
 }
 
-const Spacing = ({ size }: SpacingProps) => {
-  return <div className={'flex-shrink-0'} style={{ height: size }} />;
+const Spacing = ({ size, className }: SpacingProps) => {
+  return <div className={cn('flex-shrink-0', className)} style={{ height: size }} />;
 };
 
 export default Spacing;

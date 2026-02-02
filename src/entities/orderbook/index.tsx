@@ -1,5 +1,3 @@
-export { UpbitOrderbookApiImpl } from './api';
-
 export {
   OrderbooksSchema,
   OrderbookSchema,
@@ -11,4 +9,4 @@ export {
   OrderbookPolicy,
 } from './model';
 
-export type { Orderbook } from './model';
+export type { Orderbook, TradeSide, OrderbookUnit } from './model';

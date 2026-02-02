@@ -1,4 +1,4 @@
-export type { Orderbook, OrderbookUnit, OrderbookInstrument } from './type';
+export type { Orderbook, OrderbookUnit, OrderbookInstrument, TradeSide } from './type';
 
 export { OrderbookRepositoryImpl } from './repository';
 export { OrderbookMapper } from './mapper';
