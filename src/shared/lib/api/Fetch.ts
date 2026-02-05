@@ -20,6 +20,9 @@ class Fetch {
       const status = res.status;
 
       if (!res.ok) {
+        if (body.error) {
+          throw FetchFactory.error<any>(status, body.error?.message);
+        }
         throw FetchFactory.error<any>(status, body);
       }
 
@@ -30,7 +33,7 @@ class Fetch {
       if (err instanceof FetchErrorResponse) {
         throw HttpErrorFactory.create({
           status: err.status,
-          message: err.data?.message,
+          message: err.data,
         });
       }
       /**
@@ -38,7 +41,7 @@ class Fetch {
        */
       if (err instanceof Error) {
         throw HttpErrorFactory.create({
-          status: 500,
+          status: err.name ? parseInt(err.name, 10) : 500,
           message: err.message,
         });
       }

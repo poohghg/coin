@@ -1,11 +1,10 @@
 'use client';
 
 import { Coin } from '@/src/entities/coin';
-import { CoinSortableField, FavoritesCoins, useSearchCoins, useSortCoins } from '@/src/features/coin';
+import { FavoritesCoins, useSearchCoins, useSortCoins } from '@/src/features/coin';
 import { HomeTabs } from '@/src/pages/home/constant';
 import { ListFilter } from '@/src/pages/home/ui/ListFilter';
 import RealTimeChart from '@/src/pages/home/ui/RealTimeChart';
-import { yieldToMain } from '@/src/shared/lib/utils';
 import { If, SearchBar, TabsPanel } from '@/src/shared/uiKit';
 
 interface HomeTabPanelsProps {
@@ -18,11 +17,11 @@ const HomeTabPanels = ({ coins, fetchedAt }: HomeTabPanelsProps) => {
   const { sortedCoins, sortState, changeSortState, changeDirection } = useSortCoins(searchedCoins);
   const queryKey = `${searchQuery}-${sortState.field}`;
 
-  const handleChangeSortState = async (field: CoinSortableField) => {
-    changeSortState(field);
-    await yieldToMain();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
+  // const handleChangeSortState = async (field: CoinSortableField) => {
+  //   changeSortState(field);
+  //   await yieldToMain();
+  //   window.scrollTo({ top: 0, behavior: 'smooth' });
+  // };
 
   return (
     <div>
@@ -32,7 +31,7 @@ const HomeTabPanels = ({ coins, fetchedAt }: HomeTabPanelsProps) => {
         onInputChange={setQuery}
         useDebounce
       />
-      <ListFilter sortState={sortState} onChangeSortState={handleChangeSortState} onChangeDirection={changeDirection} />
+      <ListFilter sortState={sortState} onChangeSortState={changeSortState} onChangeDirection={changeDirection} />
       {HomeTabs.map(({ tabKey }) => (
         <TabsPanel key={tabKey} tabKey={tabKey}>
           <If condition={tabKey === 'live'}>

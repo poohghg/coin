@@ -35,8 +35,8 @@ export class UnauthorizedError extends HttpError {
 }
 
 export class NotFoundError extends HttpError {
-  constructor(resource = 'Resource') {
-    super(404, `${resource} not found`);
+  constructor(message = 'Resource not found') {
+    super(404, message);
   }
 }
 
@@ -69,13 +69,14 @@ type HttpErrorCreator = (payload: HttpErrorPayload) => HttpError;
 const httpErrorRegistry: Record<number, HttpErrorCreator> = {
   400: ({ message }) => new BadRequestError(message),
   401: ({ message }) => new UnauthorizedError(message),
-  404: ({ resource }) => new NotFoundError(resource),
+  404: ({ message }) => new NotFoundError(message),
   429: ({ message }) => new TooManyRequestsError(message),
   500: ({ message }) => new InternalServerError(message),
 };
 
 export class HttpErrorFactory {
   static create(payload: HttpErrorPayload): HttpError {
+    console.log('Creating HttpError with payload:', payload);
     const creator = httpErrorRegistry[payload.status];
     return creator ? creator(payload) : new UnknownHttpError(payload.status, payload.message);
   }

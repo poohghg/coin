@@ -19,7 +19,7 @@ const ServerFetcher = async <S,>({ fetcher, children, errorComponent }: SeverFet
       return <>{errorComponent(error)}</>;
     }
 
-    return <>무엇가 문제가 발생했습니다.</>;
+    return <div className="mt-10 text-center">무엇가 문제가 발생했습니다.</div>;
   }
 };
 
