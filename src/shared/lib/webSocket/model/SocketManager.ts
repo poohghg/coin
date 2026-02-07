@@ -141,24 +141,25 @@ export class SocketManager {
     if (!this.isProcessing) {
       this.isProcessing = true;
       this.processTimerId = setTimeout(() => {
-        this.processQueue();
+        this.flushSubscriptions();
       }, 0);
     }
   }
 
-  private processQueue() {
-    this.updateQueue.forEach((updates, key) => {
+  private flushSubscriptions() {
+    const currentQueue = this.updateQueue;
+    this.updateQueue = new Map();
+    this.isProcessing = false;
+
+    currentQueue.forEach((updates, key) => {
       const keyListeners = this.listeners.get(key);
 
       if (!keyListeners) {
-        updates.length = 0;
         return;
       }
+
       this.store.set(key, updates);
       keyListeners.forEach(listener => listener());
     });
-
-    this.isProcessing = false;
-    this.updateQueue.clear();
   }
 }

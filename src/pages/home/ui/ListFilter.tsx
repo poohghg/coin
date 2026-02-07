@@ -21,19 +21,10 @@ interface RealTimeChartFilterProps {
   onChangeDirection: (direction: 'ASC' | 'DESC') => void;
 }
 
-// 문서상 절대 위치 - 헤더 높이
+// 절대 위치 - 헤더 높이
 const TOP_OFFSET = 150 - 52;
 
 export const ListFilter = ({ sortState, onChangeSortState, onChangeDirection }: RealTimeChartFilterProps) => {
-  const toTop = async () => {
-    if (window.scrollY < 150) return;
-    await yieldToMain();
-    window.scrollTo({
-      top: TOP_OFFSET,
-      behavior: 'smooth',
-    });
-  };
-
   const handleChangeSortState = async (field: CoinSortableField) => {
     onChangeSortState(field);
     await toTop();
@@ -42,6 +33,15 @@ export const ListFilter = ({ sortState, onChangeSortState, onChangeDirection }: 
   const handleChangeDirection = async (direction: 'ASC' | 'DESC') => {
     onChangeDirection(direction);
     await toTop();
+  };
+
+  const toTop = async () => {
+    if (window.scrollY < 150) return;
+    await yieldToMain();
+    window.scrollTo({
+      top: TOP_OFFSET,
+      behavior: 'smooth',
+    });
   };
 
   return (
@@ -59,8 +59,8 @@ export const ListFilter = ({ sortState, onChangeSortState, onChangeDirection }: 
           onClick={() => handleChangeDirection(sortState.direction === 'ASC' ? 'DESC' : 'ASC')}
           className={`flex h-[32px] items-center gap-1 rounded-[8px] px-3 text-[11px] font-medium transition-all ${
             sortState.direction === 'ASC'
-              ? 'bg-red-50 text-red-600 ring-1 ring-red-200 hover:bg-red-100'
-              : 'bg-blue-50 text-blue-600 ring-1 ring-blue-200 hover:bg-blue-100'
+              ? 'bg-blue-50 text-blue-600 ring-1 ring-blue-200 hover:bg-blue-100'
+              : 'bg-red-50 text-red-600 ring-1 ring-red-200 hover:bg-red-100'
           } `}
         >
           <span>{sortState.direction === 'ASC' ? '낮은순' : '높은순'}</span>

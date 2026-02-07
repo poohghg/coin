@@ -8,7 +8,7 @@ export const MarketTabList = () => {
         <TabsTrigger className="text-[15px] font-semibold text-gray-400" tabKey={'orderbook'}>
           호가
         </TabsTrigger>
-        <TabsTrigger className="text-[15px] font-semibold text-gray-400" tabKey={'b'}>
+        <TabsTrigger className="text-[15px] font-semibold text-gray-400" tabKey={'chart'}>
           차트
         </TabsTrigger>
         <TabsTrigger className="text-[15px] font-semibold text-gray-400" tabKey={'c'}>

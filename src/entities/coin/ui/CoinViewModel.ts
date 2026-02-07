@@ -52,7 +52,7 @@ export class CoinViewModel {
    * @example 0.001 => "0.001원"
    */
   static formatPrice(price: number): string {
-    return this.krwFormatter.format(price) + '원';
+    return CoinViewModel.krwFormatter.format(price) + '원';
   }
 
   static formatSignedPrice(signed_change_price: number): string {
